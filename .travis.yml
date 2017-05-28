@@ -1,0 +1,20 @@
+language: scala
+sudo: false
+cache:
+  directories:
+  - "$HOME/.ivy2/cache"
+  - "$HOME/.sbt/launchers"
+script:
+- sbt ++$TRAVIS_SCALA_VERSION clean coverage test:scalafmt test coverageReport &&
+  sbt coverageAggregate
+after_success:
+- sbt coveralls
+scala:
+- 2.11.11
+matrix:
+  include:
+  - scala: 2.12.2
+jdk: oraclejdk8
+notifications:
+  slack:
+    secure: PoLjDa8Rh6wUcuL75Imc1ivYdhKwPN2VQ8UmdDxXCK2IVZ0WpM2PBHhyLEkn67yVgZB3zW+CLQrFzwisz4jNZCekyMSC2zd5O58GwLhTW4owcrF3SLJSffHHdwqiIEqyZN1ZVV65WSR0HaoDEDsEYw/lQUcrrPEyO1UmSWlSEzq0TuqO3yUrh+dyYY6cq0NDh6+hHBbxOm5FevImdq76hsko08/6YaBop2ecz1rBV+HeYiGlK7VbBiK0jvEoFmXo/3TARL4W6/KGKqBLX405DqgJIMI7IY1U1NFCW0OyE3xxZHGuymIAoEp10EwsYtsxVzTKEU26t+t40CwAhEHvVzXnV7xB960YGOReVuqGOEoVlCLdJNCoVwSGKl6zXkyXQwR5N35DpR7pFynfbNBUSUOgufrlfefYZSMHy9PP9/chCRsY/RzQoWy70gYYul6AlfoNokzpd6KWz3XwGCfDCQLBHY2x6T2daziCa5W8gtOz5CR73xCoRcArLlJSrnOkdw3adag/UJEdDq39b06Bgp3dfn0Qr8DKyx/d2kVTwysE+3cHgHd5oG+bBMWjKC2e7ruA62OQZqI7O5pMzP/sgK05FAAaRejTF52dUPnNyfzFT8CqIXO9m427kYVI5xSDZ3bWrQWNXPWXqyyM8whJTbII4h3Bvp2PqbbJDJzTGgg=
